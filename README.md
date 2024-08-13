@@ -22,7 +22,7 @@ Separated visualiser use the same formula for borrow and supply.
 
 ```bash
 git clone https://github.com/zakrad/irm-visualizer.git
-cd IRM-plotter
+cd irm-visualizer
 ```
 
 - Create a Virtual Environment and Activate (Optional):
