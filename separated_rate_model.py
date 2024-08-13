@@ -8,7 +8,7 @@ import mplcursors
 class InterestRateApp:
     def __init__(self, root):
         self.root = root
-        self.root.title("Interest Rate Model")
+        self.root.title("Separated Interest Rate Model")
         self.root.geometry("800x600")
 
         self.create_input_fields()
