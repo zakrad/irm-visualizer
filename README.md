@@ -21,7 +21,7 @@ Separated visualiser use the same formula for borrow and supply.
 - Clone the Repository:
 
 ```bash
-git clone https://github.com/zakrad/IRM-plotter.git
+git clone https://github.com/zakrad/irm-visualizer.git
 cd IRM-plotter
 ```
 
