@@ -9,10 +9,26 @@ git clone https://github.com/zakrad/IRM-plotter.git
 cd IRM-plotter
 ```
 
+- Create a Virtual Environment and Activate (Optional):
+
+On Windows:
+
+```bash
+python -m venv venv
+venv\Scripts\activate
+```
+
+On macOS/Linux:
+
+```bash
+python -m venv venv
+source venv/bin/activate
+```
+
 - Install Required Libraries:
 
 ```bash
-pip install -r requirements.txt
+pip install matplotlib numpy mplcursors
 ```
 
 - Run the Application:
