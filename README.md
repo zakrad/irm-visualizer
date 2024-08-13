@@ -1,4 +1,4 @@
-# Interest Rate Model Visualiser
+# Interest Rate Model Visualizer
 
 ## Formulas
 
