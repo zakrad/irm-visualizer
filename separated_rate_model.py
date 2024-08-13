@@ -8,50 +8,58 @@ import mplcursors
 class InterestRateApp:
     def __init__(self, root):
         self.root = root
-        self.root.title("Jump Rate Interest Model")
+        self.root.title("Interest Rate Model")
         self.root.geometry("800x600")
 
         self.create_input_fields()
         self.create_slider()
 
         self.plot_button = ttk.Button(self.root, text="Plot", command=self.update_plot)
-        self.plot_button.grid(row=5, column=0, columnspan=2, pady=10)
+        self.plot_button.grid(row=7, column=1, padx=10, pady=10, sticky="ew")
 
         self.figure, self.ax = plt.subplots(figsize=(5, 3))
         self.canvas = FigureCanvasTkAgg(self.figure, master=self.root)
-        self.canvas.get_tk_widget().grid(row=6, column=0, columnspan=2, padx=10, pady=10, sticky="nsew")
+        self.canvas.get_tk_widget().grid(row=8, column=0, columnspan=2, padx=10, pady=10, sticky="nsew")
 
         self.data_borrow = None
         self.data_supply = None
 
-        self.root.grid_rowconfigure(6, weight=1)
+        self.root.grid_rowconfigure(8, weight=1)
         self.root.grid_columnconfigure(1, weight=1)
 
     def create_input_fields(self):
         ttk.Label(self.root, text="Base Borrow Rate (per unit of time)").grid(row=0, column=0, padx=10, pady=5, sticky="w")
-        self.base_borrow_rate = tk.DoubleVar(value=0)
+        self.base_borrow_rate = tk.DoubleVar(value=4.75646879e-8)
         ttk.Entry(self.root, textvariable=self.base_borrow_rate).grid(row=0, column=1, padx=10, pady=5, sticky="ew")
 
-        ttk.Label(self.root, text="Low Slope").grid(row=1, column=0, padx=10, pady=5, sticky="w")
-        self.low_slope = tk.DoubleVar(value=1.585489599e-9)
-        ttk.Entry(self.root, textvariable=self.low_slope).grid(row=1, column=1, padx=10, pady=5, sticky="ew")
+        ttk.Label(self.root, text="Low Slope (Borrow Rate)").grid(row=1, column=0, padx=10, pady=5, sticky="w")
+        self.low_slope_borrow = tk.DoubleVar(value=1.585489599e-9)
+        ttk.Entry(self.root, textvariable=self.low_slope_borrow).grid(row=1, column=1, padx=10, pady=5, sticky="ew")
 
-        ttk.Label(self.root, text="High Slope").grid(row=2, column=0, padx=10, pady=5, sticky="w")
-        self.high_slope = tk.DoubleVar(value=3.4563673262e-8)
-        ttk.Entry(self.root, textvariable=self.high_slope).grid(row=2, column=1, padx=10, pady=5, sticky="ew")
+        ttk.Label(self.root, text="High Slope (Borrow Rate)").grid(row=2, column=0, padx=10, pady=5, sticky="w")
+        self.high_slope_borrow = tk.DoubleVar(value=1.26839167935e-7)
+        ttk.Entry(self.root, textvariable=self.high_slope_borrow).grid(row=2, column=1, padx=10, pady=5, sticky="ew")
 
-        ttk.Label(self.root, text="Reserve Factor (%)").grid(row=3, column=0, padx=10, pady=5, sticky="w")
-        self.reserve_factor = tk.DoubleVar(value=5.0)
-        ttk.Entry(self.root, textvariable=self.reserve_factor).grid(row=3, column=1, padx=10, pady=5, sticky="ew")
+        ttk.Label(self.root, text="Base Supply Rate (per unit of time)").grid(row=3, column=0, padx=10, pady=5, sticky="w")
+        self.base_supply_rate = tk.DoubleVar(value=0)
+        ttk.Entry(self.root, textvariable=self.base_supply_rate).grid(row=3, column=1, padx=10, pady=5, sticky="ew")
+
+        ttk.Label(self.root, text="Low Slope (Supply Rate)").grid(row=4, column=0, padx=10, pady=5, sticky="w")
+        self.low_slope_supply = tk.DoubleVar(value=1.648909183e-9)
+        ttk.Entry(self.root, textvariable=self.low_slope_supply).grid(row=4, column=1, padx=10, pady=5, sticky="ew")
+
+        ttk.Label(self.root, text="High Slope (Supply Rate)").grid(row=5, column=0, padx=10, pady=5, sticky="w")
+        self.high_slope_supply = tk.DoubleVar(value=1.14155251141e-7)
+        ttk.Entry(self.root, textvariable=self.high_slope_supply).grid(row=5, column=1, padx=10, pady=5, sticky="ew")
 
     def create_slider(self):
-        ttk.Label(self.root, text="Optimal Utilization (%)").grid(row=4, column=0, padx=10, pady=5, sticky="w")
-        
+        ttk.Label(self.root, text="Optimal Utilization (%)").grid(row=6, column=0, padx=10, pady=5, sticky="w")
+
         # Create a frame to hold the slider and its label
         slider_frame = ttk.Frame(self.root)
-        slider_frame.grid(row=4, column=1, padx=10, pady=5, sticky="ew")
+        slider_frame.grid(row=6, column=1, padx=10, pady=5, sticky="ew")
         
-        self.u_optimal = tk.DoubleVar(value=80.0)
+        self.u_optimal = tk.DoubleVar(value=90.0)
         self.slider = ttk.Scale(slider_frame, from_=0, to=100, orient=tk.HORIZONTAL, variable=self.u_optimal, command=self.update_slider_label)
         self.slider.pack(side=tk.LEFT, fill=tk.X, expand=True)
         
@@ -63,21 +71,31 @@ class InterestRateApp:
         self.update_plot()
 
     def update_plot(self, *args):
-        base_rate = self.base_borrow_rate.get()
-        low_slope = self.low_slope.get()
-        high_slope = self.high_slope.get()
+        base_borrow_rate = self.base_borrow_rate.get()
+        low_slope_borrow = self.low_slope_borrow.get()
+        high_slope_borrow = self.high_slope_borrow.get()
+        base_supply_rate = self.base_supply_rate.get()
+        low_slope_supply = self.low_slope_supply.get()
+        high_slope_supply = self.high_slope_supply.get()
         u_optimal = self.u_optimal.get()
-        reserve_factor = self.reserve_factor.get() / 100.0
 
         utilization = np.linspace(0, 100, 100)
         borrow_rates = []
         supply_rates = []
+
         for U in utilization:
+            # Borrow Rate Calculation
             if U <= u_optimal:
-                borrow_rate = base_rate + (U * low_slope)
+                borrow_rate = base_borrow_rate + (U * low_slope_borrow)
             else:
-                borrow_rate = base_rate + (low_slope * u_optimal) + ((U - u_optimal) * high_slope)
-            supply_rate = borrow_rate * (U / 100) * (1 - reserve_factor)
+                borrow_rate = base_borrow_rate + (low_slope_borrow * u_optimal) + ((U - u_optimal) * high_slope_borrow)
+
+            # Supply Rate Calculation
+            if U <= u_optimal:
+                supply_rate = base_supply_rate + (U * low_slope_supply)
+            else:
+                supply_rate = base_supply_rate + (low_slope_supply * u_optimal) + ((U - u_optimal) * high_slope_supply)
+                
             borrow_rates.append(borrow_rate)
             supply_rates.append(supply_rate)
 
