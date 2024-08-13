@@ -18,5 +18,5 @@ pip install -r requirements.txt
 - Run the Application:
 
 ```bash
-python interest_rate_app.py
+python jump_rate_app.py
 ```
