@@ -15,7 +15,7 @@ cd IRM-plotter
 pip install -r requirements.txt
 ```
 
-- jump_rate_model
+- Run the Application:
 
 ```bash
 python interest_rate_app.py
