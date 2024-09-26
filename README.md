@@ -50,6 +50,6 @@ pip install matplotlib numpy mplcursors
 - Run the Application:
 
 ```bash
-python jump_rate_app.py
-python separated_rate_app.py
+python jump_rate_model.py
+python separated_rate_model.py
 ```
