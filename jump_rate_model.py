@@ -32,11 +32,11 @@ class InterestRateApp:
         self.base_borrow_rate = tk.DoubleVar(value=0)
         ttk.Entry(self.root, textvariable=self.base_borrow_rate).grid(row=0, column=1, padx=10, pady=5, sticky="ew")
 
-        ttk.Label(self.root, text="Low Slope").grid(row=1, column=0, padx=10, pady=5, sticky="w")
+        ttk.Label(self.root, text="Normal Slope").grid(row=1, column=0, padx=10, pady=5, sticky="w")
         self.low_slope = tk.DoubleVar(value=1.585489599e-9)
         ttk.Entry(self.root, textvariable=self.low_slope).grid(row=1, column=1, padx=10, pady=5, sticky="ew")
 
-        ttk.Label(self.root, text="High Slope").grid(row=2, column=0, padx=10, pady=5, sticky="w")
+        ttk.Label(self.root, text="Discourage Slope").grid(row=2, column=0, padx=10, pady=5, sticky="w")
         self.high_slope = tk.DoubleVar(value=3.4563673262e-8)
         ttk.Entry(self.root, textvariable=self.high_slope).grid(row=2, column=1, padx=10, pady=5, sticky="ew")
 
