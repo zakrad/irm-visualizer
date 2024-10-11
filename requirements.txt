@@ -1,6 +1,5 @@
 setuptools>=75.0.0
 wheel
-distutils
 streamlit==1.26.0
 plotly==5.16.0
 numpy==1.25.0
