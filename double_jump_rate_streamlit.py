@@ -73,7 +73,7 @@ if st.button('Calculate Rates'):
         )
     else:
         utilization, borrow_rates, supply_rates, borrow_aprs, supply_aprs = calculate_rates(
-            base_rate, low_slope, jump_slope=jump_slope, reserve_factor=reserve_factor, model_type=model_type, kink=kink
+            base_rate, low_slope, jump_slope=jump_slope, reserve_factor=reserve_factor, model_type=model_type
         )
 
     fig = go.Figure()
