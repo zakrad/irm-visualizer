@@ -67,7 +67,7 @@ if st.button('Calculate Rates'):
     # Add borrow rate trace with hover displaying APR and rate
     fig.add_trace(go.Scatter(
         x=utilization, y=borrow_rates,
-        mode='lines',  # Only lines, no markers
+        mode='lines+markers',
         name='Borrow Rates',
         hovertemplate="Borrow Rate: %{y:.2e}<br>Borrow APR: %{customdata:.2f}%",
         customdata=borrow_aprs  # Pass APR as custom data
@@ -76,7 +76,7 @@ if st.button('Calculate Rates'):
     # Add supply rate trace with hover displaying APR and rate
     fig.add_trace(go.Scatter(
         x=utilization, y=supply_rates,
-        mode='lines',  # Only lines, no markers
+        mode='lines+markers',
         name='Supply Rates',
         hovertemplate="Supply Rate: %{y:.2e}<br>Supply APR: %{customdata:.2f}%",
         customdata=supply_aprs  # Pass APR as custom data
