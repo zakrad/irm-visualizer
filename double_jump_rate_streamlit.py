@@ -7,7 +7,7 @@ st.title('2-Slope and 3-Slope Jump Rate Interest Models')
 model_type = st.radio("Select Interest Rate Model", ('2-Slope', '3-Slope'))
 
 base_rate = st.number_input('Base Borrow Rate', format="%.10e", value=0.0)
-reserve_factor = st.number_input('Reserve Factor (%)', value=5.0)
+reserve_factor = st.number_input('Reserve Factor (%)', value=10.0)
 
 if model_type == '3-Slope':
     low_slope = st.number_input('Low Slope (3-Slope)', format="%.10e", value=0.0)
