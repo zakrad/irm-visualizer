@@ -11,14 +11,14 @@ reserve_factor = st.number_input('Reserve Factor (%)', value=5.0)
 
 if model_type == '3-Slope':
     low_slope = st.number_input('Low Slope (3-Slope)', format="%.10e", value=0.0)
-    first_jump_slope = st.number_input('First Jump Slope (3-Slope)', format="%.10e", value=1.5854895990e-9)
-    second_jump_slope = st.number_input('Second Jump Slope (3-Slope)', format="%.10e", value=3.4563673262e-8)
+    first_jump_slope = st.number_input('First Jump Slope (3-Slope)', format="%.10e", value=1.93782062e-9)
+    second_jump_slope = st.number_input('Second Jump Slope (3-Slope)', format="%.10e", value=1.9e-7)
     first_kink = st.slider('First Kink (%) (3-Slope)', min_value=0, max_value=100, value=5)
-    second_kink = st.slider('Second Kink (%) (3-Slope)', min_value=0, max_value=100, value=85)
+    second_kink = st.slider('Second Kink (%) (3-Slope)', min_value=0, max_value=100, value=95)
 else:
-    low_slope = st.number_input('Low Slope (2-Slope)', format="%.10e", value=1.5854895990e-9)
-    jump_slope = st.number_input('Jump Slope (2-Slope)', format="%.10e", value=3.4563673262e-8)
-    kink = st.slider('Kink (%) (2-Slope)', min_value=0, max_value=100, value=80)
+    low_slope = st.number_input('Low Slope (2-Slope)', format="%.10e", value=1.93782062e-9)
+    jump_slope = st.number_input('Jump Slope (2-Slope)', format="%.10e", value=1.9e-7)
+    kink = st.slider('Kink (%) (2-Slope)', min_value=0, max_value=100, value=90)
 
 def calculate_rates(base_rate, low_slope, reserve_factor, model_type, jump_slope=None, kinks=None):
     utilization = np.linspace(0, 100, 100)
